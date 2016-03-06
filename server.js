@@ -14,5 +14,21 @@ app.use(bodyParser.json());
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 app.use(methodOverride());
 
+// define model
+var Todo = mongoose.model('Todo', {
+    text : String
+});
+
+// routes
+// GET
+app.get('/api/todos', function(req, res) {
+    // use mongoose to get all todos in the database
+    Todo.find(function(err, todos) {
+        // if there is an error, send error
+        if (err) res.send(err);
+        res.json(todos);
+    });
+});
+
 app.listen(8080);
 console.log("App listening on port 8080");
