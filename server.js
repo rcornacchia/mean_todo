@@ -5,10 +5,7 @@ var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 
-
-
-
-mongoose.connect('mongodb://localhost/myapp');
+mongoose.connect('mongodb://localhost:27017/myapp');
 
 app.use(express.static(__dirname + '/public'));
 app.use(morgan('dev'));
@@ -33,5 +30,9 @@ app.get('/api/todos', function(req, res) {
     });
 });
 
-app.listen(8080);
+var Todo = mongoose.model('Todo', {
+    text: String
+});
+
+app.listen(8081);
 console.log("App listening on port 8080");
